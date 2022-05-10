@@ -14,10 +14,11 @@
   style="{fileBlob ? `background-image: url('${fileBlob}')` : ""};" 
   class="w-screen h-screen bg-cover bg-no-repeat bg-center"
 />
-<div class="fixed top-0 left-0 w-2/5 h-2/5" on:mouseenter={() => { visible = true }} ></div>
-{#if visible}
-  <div transition:fly={{y: -150, x: -150}} class="text-white fixed top-0 left-0 m-8 bg-gray-500/75 rounded-lg z-10 text-center">
-    <input bind:this={fileInput} transition:fly={{y: -150, x: -150}} type="file" class="hidden" bind:files={files}>
-    <button class="px-4 py-2 bg-gray-800 rounded-lg ring ring-gray-700 m-4" on:click={() => fileInput.click()}>Choose file</button>
-  </div>
+<div class="fixed top-0 left-0 w-1/5 h-1/5" on:mouseenter={() => { visible = true }} ></div>
+<input bind:this={fileInput} type="file" class="hidden" bind:files={files}>
+{#if visible || files.length === 0}
+  <button transition:fly={{y: -150, duration: 500}} class="fixed top-0 left-0 text-white px-4 py-2 bg-gray-800 rounded-lg ring ring-gray-700 m-4" on:click={() => fileInput.click()}>Choose file</button>
+  {#if files.length === 0}
+    <p class="text-black fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">No file chosen. Choose one at the top left.</p>
+  {/if}
 {/if}
